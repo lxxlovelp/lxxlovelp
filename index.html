@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大大怪将军 & 小小怪下士的恋爱纪念日</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #f9f0ff, #e6f7ff);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff7eb3, #7e8ce0, #65c6ff);
+        }
+        
+        .couple-names {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 2.8rem;
+            color: #ff4d94;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .love-icon {
+            color: #ff4d94;
+            margin: 0 10px;
+        }
+        
+        .today-date {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .days-counter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+        }
+        
+        .days-card {
+            background: linear-gradient(135deg, #ff7eb3, #ff758c);
+            color: white;
+            padding: 25px 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(255, 126, 179, 0.3);
+            min-width: 300px;
+        }
+        
+        .days-number {
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .days-text {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            color: #ff4d94;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-title i {
+            margin-right: 10px;
+        }
+        
+        .encouragement-container {
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .encouragement-text {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .refresh-btn {
+            background: linear-gradient(to right, #7e8ce0, #65c6ff);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .refresh-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(101, 198, 255, 0.4);
+        }
+        
+        .refresh-btn i {
+            margin-right: 8px;
+        }
+        
+        .milestone-list {
+            list-style-type: none;
+        }
+        
+        .milestone-item {
+            padding: 15px 0;
+            border-bottom: 1px dashed #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .milestone-item:last-child {
+            border-bottom: none;
+        }
+        
+        .milestone-name {
+            font-weight: 500;
+            color: #444;
+        }
+        
+        .milestone-date {
+            color: #ff758c;
+            font-weight: 500;
+        }
+        
+        .countdown {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .calendar-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+        }
+        
+        .calendar-item {
+            background: rgba(255, 245, 250, 0.8);
+            border-left: 4px solid #ff7eb3;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .calendar-label {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        
+        .calendar-value {
+            font-weight: 500;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .holiday-item {
+            background: rgba(255, 245, 250, 0.8);
+            border-left: 4px solid #ff7eb3;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 10px;
+        }
+        
+        .holiday-name {
+            font-weight: 500;
+            color: #ff4d94;
+            margin-bottom: 5px;
+        }
+        
+        .holiday-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .holiday-type {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #e6f7ff;
+            color: #1890ff;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+        
+        .holiday-type.holiday {
+            background: #fff0f6;
+            color: #f759ab;
+        }
+        
+        .api-info {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+        }
+        
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 126, 179, 0.3);
+            font-size: 20px;
+            animation: float 8s linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* 烟花效果样式 - 更大尺寸 */
+        .fireworks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 998;
+        }
+        
+        .firework-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        /* 大烟花粒子 */
+        .firework-particle.large {
+            width: 10px;
+            height: 10px;
+        }
+        
+        /* 闪光效果 */
+        .firework-flash {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        /* 心形爆炸粒子 */
+        .firework-heart {
+            position: absolute;
+            color: rgba(255, 126, 179, 0.9);
+            font-size: 20px;
+            pointer-events: none;
+        }
+        
+        /* 烟花重新播放按钮 */
+        .fireworks-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff7eb3, #ff4d94);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(255, 126, 179, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .fireworks-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 126, 179, 0.6);
+        }
+        
+        .fireworks-btn i {
+            margin-right: 8px;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 126, 179, 0.3);
+            border-radius: 50%;
+            border-top-color: #ff7eb3;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            color: #ff4444;
+            background-color: #ffe6e6;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .loading-text {
+            text-align: center;
+            color: #666;
+            padding: 20px;
+        }
+        
+        .weekend {
+            color: #f759ab;
+            font-weight: bold;
+        }
+        
+        .workday {
+            color: #1890ff;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .couple-names {
+                font-size: 2rem;
+            }
+            
+            .days-number {
+                font-size: 4rem;
+            }
+            
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .days-card {
+                min-width: 250px;
+                padding: 20px 30px;
+            }
+            
+            .calendar-info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .fireworks-btn {
+                bottom: 10px;
+                right: 10px;
+                padding: 10px 15px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 烟花容器 -->
+    <div class="fireworks-container" id="fireworksContainer"></div>
+    
+    <!-- 心形背景 -->
+    <div class="hearts-container" id="heartsContainer"></div>
+    
+    <!-- 烟花重新播放按钮 -->
+    <button class="fireworks-btn" id="fireworksBtn">
+        <i class="fas fa-fire"></i> 再放一次烟花
+    </button>
+    
+    <div class="container">
+        <header class="header">
+            <h1 class="couple-names">
+                大大怪将军 <i class="fas fa-heart love-icon"></i> 小小怪下士
+            </h1>
+            <p class="today-date" id="todayDate"></p>
+            <div class="days-counter">
+                <div class="days-card">
+                    <div class="days-number" id="daysNumber">13</div>
+                    <div class="days-text">在一起的天数</div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="content">
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-quote-left"></i> 每日鼓励</h2>
+                <div class="encouragement-container" id="encouragementContainer">
+                    <div class="loading" id="loadingIndicator"></div>
+                    <p class="encouragement-text" id="encouragementText"></p>
+                    <button class="refresh-btn" id="refreshBtn">
+                        <i class="fas fa-redo-alt"></i> 换一句鼓励的话
+                    </button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-calendar-alt"></i> 纪念日倒计时</h2>
+                <ul class="milestone-list" id="milestoneList">
+                    <!-- 纪念日列表会通过JS动态生成 -->
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-gift"></i> 节日提醒与日历信息</h2>
+                <div class="api-info">数据来源：Mxnzp日历API</div>
+                <div id="calendarInfo">
+                    <div class="loading-text">
+                        <div class="loading"></div>
+                        <p>正在获取日历信息...</p>
+                    </div>
+                </div>
+                <div id="holidayInfo"></div>
+                <div id="calendarError" class="error-message" style="display: none;"></div>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <p>本页面每日自动更新 | 纪念天数从 2025年12月11日 开始计算</p>
+            <p>❤️ 祝大大怪将军和小小怪下士永远幸福 ❤️</p>
+        </footer>
+    </div>
+
+    <script>
+        // API配置
+        const CALENDAR_API_BASE = 'https://www.mxnzp.com/api/holiday/single/';
+        const APP_ID = 'ixssxqertpltndez';
+        const APP_SECRET = 'QUF5S2JLZkNqSHdyeVVLczdCNSt1QT09';
+        
+        // 烟花效果相关
+        let isFireworksPlaying = false;
+        let fireworksTimeout = null;
+        
+        // 创建漂浮的心形背景
+        function createHearts() {
+            const heartsContainer = document.getElementById('heartsContainer');
+            const heartCount = 20;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '<i class="fas fa-heart"></i>';
+                
+                const size = Math.random() * 20 + 10;
+                const left = Math.random() * 100;
+                const delay = Math.random() * 5;
+                
+                heart.style.left = `${left}%`;
+                heart.style.fontSize = `${size}px`;
+                heart.style.animationDelay = `${delay}s`;
+                
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // 创建烟花效果 - 更大更壮观
+        function createFireworks() {
+            if (isFireworksPlaying) return;
+            
+            isFireworksPlaying = true;
+            const container = document.getElementById('fireworksContainer');
+            container.innerHTML = '';
+            
+            // 烟花的颜色 - 更多颜色选择
+            const colors = [
+                '#FF5252', '#FF4081', '#E040FB', '#7C4DFF',
+                '#536DFE', '#448AFF', '#40C4FF', '#18FFFF',
+                '#64FFDA', '#69F0AE', '#B2FF59', '#EEFF41',
+                '#FFFF00', '#FFD740', '#FFAB40', '#FF6E40',
+                '#FF4081', '#F50057', '#C51162', '#FF1744',
+                '#FF9100', '#FFAB00', '#FFD600', '#FFEA00'
+            ];
+            
+            // 烟花类型
+            const fireworkTypes = [
+                { name: '大型圆形', particleCount: 120, radius: 100, duration: 1200 },
+                { name: '心形', particleCount: 80, radius: 80, duration: 1000, shape: 'heart' },
+                { name: '超大圆形', particleCount: 150, radius: 120, duration: 1400 },
+                { name: '双层爆炸', particleCount: 100, radius: 90, duration: 1100, layers: 2 },
+                { name: '巨型星形', particleCount: 180, radius: 150, duration: 1600 }
+            ];
+            
+            // 创建更多烟花
+            const fireworkCount = 12; // 增加烟花数量
+            let completedFireworks = 0;
+            
+            for (let i = 0; i < fireworkCount; i++) {
+                setTimeout(() => {
+                    const typeIndex = Math.floor(Math.random() * fireworkTypes.length);
+                    const fireworkType = fireworkTypes[typeIndex];
+                    createSingleFirework(container, colors, fireworkType, () => {
+                        completedFireworks++;
+                        if (completedFireworks >= fireworkCount) {
+                            // 所有烟花完成后清理
+                            setTimeout(() => {
+                                container.innerHTML = '';
+                                isFireworksPlaying = false;
+                            }, 3000);
+                        }
+                    });
+                }, i * 600); // 减少烟花之间的延迟，让烟花更密集
+            }
+            
+            // 创建一些特殊的大烟花
+            setTimeout(() => {
+                createSpecialFirework(container, colors, 'heart');
+            }, 2000);
+            
+            setTimeout(() => {
+                createSpecialFirework(container, colors, 'ring');
+            }, 3500);
+            
+            setTimeout(() => {
+                createSpecialFirework(container, colors, 'spiral');
+            }, 5000);
+            
+            // 烟花播放10秒后自动停止
+            if (fireworksTimeout) {
+                clearTimeout(fireworksTimeout);
+            }
+            
+            fireworksTimeout = setTimeout(() => {
+                container.innerHTML = '';
+                isFireworksPlaying = false;
+            }, 10000);
+        }
+        
+        // 创建单个烟花
+        function createSingleFirework(container, colors, fireworkType, onComplete) {
+            // 随机位置
+            const x = Math.random() * 85 + 7.5; // 7.5% 到 92.5%
+            const y = Math.random() * 50 + 20; // 20% 到 70%
+            
+            // 烟花主颜色
+            const mainColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            // 创建烟花轨迹 - 更大
+            const trail = document.createElement('div');
+            trail.style.position = 'absolute';
+            trail.style.left = `${x}%`;
+            trail.style.bottom = '0';
+            trail.style.width = '8px';
+            trail.style.height = '8px';
+            trail.style.backgroundColor = mainColor;
+            trail.style.borderRadius = '50%';
+            trail.style.boxShadow = `0 0 12px ${mainColor}, 0 0 24px ${mainColor}`;
+            trail.style.zIndex = '999';
+            container.appendChild(trail);
+            
+            // 烟花发射动画 - 更快的速度
+            const trailAnimation = trail.animate([
+                { 
+                    bottom: '0', 
+                    opacity: 1,
+                    transform: 'scale(1)'
+                },
+                { 
+                    bottom: `${y}%`, 
+                    opacity: 1,
+                    transform: 'scale(2)'
+                },
+                { 
+                    bottom: `${y}%`, 
+                    opacity: 0,
+                    transform: 'scale(0.5)'
+                }
+            ], {
+                duration: 600,
+                easing: 'cubic-bezier(0.1, 0, 0.8, 1)'
+            });
+            
+            trailAnimation.onfinish = () => {
+                container.removeChild(trail);
+                
+                // 创建爆炸效果
+                if (fireworkType.shape === 'heart') {
+                    createHeartExplosion(container, x, y, mainColor, colors, fireworkType, onComplete);
+                } else {
+                    createLargeExplosion(container, x, y, mainColor, colors, fireworkType, onComplete);
+                }
+            };
+        }
+        
+        // 创建大型爆炸效果
+        function createLargeExplosion(container, x, y, mainColor, colors, fireworkType, onComplete) {
+            const particleCount = fireworkType.particleCount || 120;
+            const radius = fireworkType.radius || 100;
+            const duration = fireworkType.duration || 1200;
+            const layers = fireworkType.layers || 1;
+            
+            let particlesCompleted = 0;
+            
+            for (let layer = 0; layer < layers; layer++) {
+                const layerDelay = layer * 200;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = Math.random() > 0.7 ? 'firework-particle large' : 'firework-particle';
+                    particle.style.left = `${x}%`;
+                    particle.style.top = `${y}%`;
+                    
+                    // 随机颜色
+                    const color = Math.random() > 0.4 ? mainColor : colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.backgroundColor = color;
+                    particle.style.boxShadow = `0 0 10px ${color}, 0 0 20px ${color}`;
+                    
+                    container.appendChild(particle);
+                    
+                    // 随机角度和距离
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = radius * (0.7 + Math.random() * 0.3);
+                    const size = layer === 0 ? (4 + Math.random() * 8) : (2 + Math.random() * 4);
+                    
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    
+                    // 粒子动画
+                    const animation = particle.animate([
+                        { 
+                            transform: 'translate(0, 0) scale(1)',
+                            opacity: 1
+                        },
+                        { 
+                            transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(0.3)`,
+                            opacity: 0
+                        }
+                    ], {
+                        duration: duration + Math.random() * 500,
+                        delay: layerDelay,
+                        easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+                    });
+                    
+                    animation.onfinish = () => {
+                        if (particle.parentNode) {
+                            container.removeChild(particle);
+                        }
+                        particlesCompleted++;
+                        
+                        if (particlesCompleted >= particleCount * layers) {
+                            onComplete();
+                        }
+                    };
+                }
+            }
+            
+            // 添加一个大的中心闪光效果
+            createLargeFlash(container, x, y, mainColor, duration);
+            
+            // 添加额外的闪光效果
+            setTimeout(() => {
+                createSecondaryFlash(container, x, y, colors, duration);
+            }, 200);
+        }
+        
+        // 创建心形爆炸
+        function createHeartExplosion(container, x, y, mainColor, colors, fireworkType, onComplete) {
+            const particleCount = 60;
+            let particlesCompleted = 0;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const t = i / particleCount * Math.PI * 2;
+                
+                // 心形参数方程
+                const scale = 0.8 + Math.random() * 0.4;
+                const heartX = 16 * Math.pow(Math.sin(t), 3);
+                const heartY = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+                
+                const particle = document.createElement('div');
+                if (Math.random() > 0.7) {
+                    // 创建心形图标
+                    const heart = document.createElement('div');
+                    heart.className = 'firework-heart';
+                    heart.innerHTML = '<i class="fas fa-heart"></i>';
+                    heart.style.left = `${x}%`;
+                    heart.style.top = `${y}%`;
+                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    heart.style.fontSize = `${12 + Math.random() * 16}px`;
+                    container.appendChild(heart);
+                    
+                    const animation = heart.animate([
+                        { 
+                            transform: 'translate(0, 0) scale(0.5)',
+                            opacity: 1
+                        },
+                        { 
+                            transform: `translate(${heartX * 6 * scale}px, ${heartY * 6 * scale}px) scale(1.2)`,
+                            opacity: 0.8
+                        },
+                        { 
+                            transform: `translate(${heartX * 8 * scale}px, ${heartY * 8 * scale}px) scale(0)`,
+                            opacity: 0
+                        }
+                    ], {
+                        duration: 1400 + Math.random() * 600,
+                        easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+                    });
+                    
+                    animation.onfinish = () => {
+                        if (heart.parentNode) {
+                            container.removeChild(heart);
+                        }
+                        particlesCompleted++;
+                        
+                        if (particlesCompleted >= particleCount) {
+                            onComplete();
+                        }
+                    };
+                } else {
+                    // 创建普通粒子
+                    particle.className = 'firework-particle large';
+                    particle.style.left = `${x}%`;
+                    particle.style.top = `${y}%`;
+                    
+                    const color = Math.random() > 0.5 ? mainColor : colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.backgroundColor = color;
+                    particle.style.boxShadow = `0 0 12px ${color}, 0 0 24px ${color}`;
+                    
+                    container.appendChild(particle);
+                    
+                    const size = 6 + Math.random() * 8;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    
+                    const animation = particle.animate([
+                        { 
+                            transform: 'translate(0, 0) scale(0.5)',
+                            opacity: 1
+                        },
+                        { 
+                            transform: `translate(${heartX * 5 * scale}px, ${heartY * 5 * scale}px) scale(1.5)`,
+                            opacity: 0.8
+                        },
+                        { 
+                            transform: `translate(${heartX * 7 * scale}px, ${heartY * 7 * scale}px) scale(0)`,
+                            opacity: 0
+                        }
+                    ], {
+                        duration: 1200 + Math.random() * 800,
+                        easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+                    });
+                    
+                    animation.onfinish = () => {
+                        if (particle.parentNode) {
+                            container.removeChild(particle);
+                        }
+                        particlesCompleted++;
+                        
+                        if (particlesCompleted >= particleCount) {
+                            onComplete();
+                        }
+                    };
+                }
+            }
+            
+            // 添加心形中心闪光
+            createLargeFlash(container, x, y, mainColor, 1200);
+        }
+        
+        // 创建特殊烟花
+        function createSpecialFirework(container, colors, type) {
+            const x = Math.random() * 70 + 15;
+            const y = Math.random() * 40 + 30;
+            const mainColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            if (type === 'heart') {
+                // 心形烟花
+                createHeartExplosion(container, x, y, mainColor, colors, 
+                    { particleCount: 100, radius: 80, duration: 1500 }, 
+                    () => {});
+            } else if (type === 'ring') {
+                // 环形烟花
+                createRingExplosion(container, x, y, mainColor, colors);
+            } else if (type === 'spiral') {
+                // 螺旋烟花
+                createSpiralExplosion(container, x, y, mainColor, colors);
+            }
+        }
+        
+        // 创建环形爆炸
+        function createRingExplosion(container, x, y, mainColor, colors) {
+            const particleCount = 80;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const angle = i / particleCount * Math.PI * 2;
+                const delay = i * 20;
+                
+                setTimeout(() => {
+                    for (let ring = 0; ring < 3; ring++) {
+                        const particle = document.createElement('div');
+                        particle.className = 'firework-particle large';
+                        particle.style.left = `${x}%`;
+                        particle.style.top = `${y}%`;
+                        
+                        const color = colors[Math.floor(Math.random() * colors.length)];
+                        particle.style.backgroundColor = color;
+                        particle.style.boxShadow = `0 0 10px ${color}`;
+                        
+                        container.appendChild(particle);
+                        
+                        const size = 4 + Math.random() * 6;
+                        particle.style.width = `${size}px`;
+                        particle.style.height = `${size}px`;
+                        
+                        const radius = 40 + ring * 30;
+                        
+                        const animation = particle.animate([
+                            { 
+                                transform: 'translate(0, 0) scale(1)',
+                                opacity: 1
+                            },
+                            { 
+                                transform: `translate(${Math.cos(angle) * radius}px, ${Math.sin(angle) * radius}px) scale(0.2)`,
+                                opacity: 0
+                            }
+                        ], {
+                            duration: 1000 + Math.random() * 500,
+                            easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+                        });
+                        
+                        animation.onfinish = () => {
+                            if (particle.parentNode) {
+                                container.removeChild(particle);
+                            }
+                        };
+                    }
+                }, delay);
+            }
+            
+            createLargeFlash(container, x, y, mainColor, 1000);
+        }
+        
+        // 创建螺旋爆炸
+        function createSpiralExplosion(container, x, y, mainColor, colors) {
+            const spiralCount = 3;
+            const particlesPerSpiral = 40;
+            
+            for (let spiral = 0; spiral < spiralCount; spiral++) {
+                for (let i = 0; i < particlesPerSpiral; i++) {
+                    setTimeout(() => {
+                        const angle = (i / particlesPerSpiral) * Math.PI * 6 + (spiral * Math.PI * 2 / 3);
+                        const radius = (i / particlesPerSpiral) * 100;
+                        
+                        const particle = document.createElement('div');
+                        particle.className = 'firework-particle';
+                        particle.style.left = `${x}%`;
+                        particle.style.top = `${y}%`;
+                        
+                        const color = colors[(spiral + i) % colors.length];
+                        particle.style.backgroundColor = color;
+                        particle.style.boxShadow = `0 0 8px ${color}`;
+                        
+                        container.appendChild(particle);
+                        
+                        const size = 3 + Math.random() * 5;
+                        particle.style.width = `${size}px`;
+                        particle.style.height = `${size}px`;
+                        
+                        const animation = particle.animate([
+                            { 
+                                transform: 'translate(0, 0) scale(1)',
+                                opacity: 1
+                            },
+                            { 
+                                transform: `translate(${Math.cos(angle) * radius}px, ${Math.sin(angle) * radius}px) scale(0.3)`,
+                                opacity: 0
+                            }
+                        ], {
+                            duration: 1200 + Math.random() * 400,
+                            easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+                        });
+                        
+                        animation.onfinish = () => {
+                            if (particle.parentNode) {
+                                container.removeChild(particle);
+                            }
+                        };
+                    }, spiral * 100 + i * 20);
+                }
+            }
+            
+            createLargeFlash(container, x, y, mainColor, 1200);
+        }
+        
+        // 创建大型闪光效果
+        function createLargeFlash(container, x, y, color, duration) {
+            const flash = document.createElement('div');
+            flash.className = 'firework-flash';
+            flash.style.left = `${x}%`;
+            flash.style.top = `${y}%`;
+            flash.style.backgroundColor = color;
+            flash.style.transform = 'translate(-50%, -50%)';
+            flash.style.boxShadow = `0 0 40px 20px ${color}, 0 0 80px 40px ${color}`;
+            container.appendChild(flash);
+            
+            const flashAnimation = flash.animate([
+                { 
+                    width: '0',
+                    height: '0',
+                    opacity: 1
+                },
+                { 
+                    width: '120px',
+                    height: '120px',
+                    opacity: 0.9
+                },
+                { 
+                    width: '200px',
+                    height: '200px',
+                    opacity: 0
+                }
+            ], {
+                duration: duration * 0.6,
+                easing: 'cubic-bezier(0.2, 0, 0.8, 1)'
+            });
+            
+            flashAnimation.onfinish = () => {
+                if (flash.parentNode) {
+                    container.removeChild(flash);
+                }
+            };
+        }
+        
+        // 创建次要闪光效果
+        function createSecondaryFlash(container, x, y, colors, duration) {
+            const secondaryColor = colors[Math.floor(Math.random() * colors.length)];
+            const flash = document.createElement('div');
+            flash.className = 'firework-flash';
+            flash.style.left = `${x}%`;
+            flash.style.top = `${y}%`;
+            flash.style.backgroundColor = secondaryColor;
+            flash.style.transform = 'translate(-50%, -50%)';
+            flash.style.boxShadow = `0 0 30px 15px ${secondaryColor}`;
+            container.appendChild(flash);
+            
+            const flashAnimation = flash.animate([
+                { 
+                    width: '0',
+                    height: '0',
+                    opacity: 0.8
+                },
+                { 
+                    width: '80px',
+                    height: '80px',
+                    opacity: 0.6
+                },
+                { 
+                    width: '150px',
+                    height: '150px',
+                    opacity: 0
+                }
+            ], {
+                duration: duration * 0.8,
+                easing: 'cubic-bezier(0.2, 0, 0.8, 1)'
+            });
+            
+            flashAnimation.onfinish = () => {
+                if (flash.parentNode) {
+                    container.removeChild(flash);
+                }
+            };
+        }
+        
+        // 计算天数
+        function calculateDays() {
+            const startDate = new Date('2025-12-11');
+            const today = new Date(); // 使用当前实际日期
+            const diffTime = today - startDate;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        }
+        
+        // 更新日期显示
+        function updateDateDisplay() {
+            const today = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            const dateString = today.toLocaleDateString('zh-CN', options);
+            document.getElementById('todayDate').textContent = `今天是 ${dateString}`;
+            
+            const days = calculateDays();
+            document.getElementById('daysNumber').textContent = days;
+        }
+        
+        // 获取鼓励话语
+        async function fetchEncouragement() {
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const encouragementText = document.getElementById('encouragementText');
+            const refreshBtn = document.getElementById('refreshBtn');
+            
+            loadingIndicator.style.display = 'inline-block';
+            encouragementText.textContent = '';
+            refreshBtn.disabled = true;
+            
+            try {
+                const apis = [
+                    'https://api.quotable.io/random?tags=love|inspirational',
+                    'https://api.adviceslip.com/advice',
+                    'https://api.fisenko.net/v1/quotes/en/random'
+                ];
+                
+                let encouragement = '';
+                
+                try {
+                    const response = await fetch(apis[0]);
+                    if (response.ok) {
+                        const data = await response.json();
+                        encouragement = data.content || data.quote || "爱是生活中最美好的礼物，珍惜每一刻。";
+                    } else {
+                        throw new Error('API 1 failed');
+                    }
+                } catch (error) {
+                    console.log("API 1 失败，尝试 API 2");
+                    try {
+                        const response = await fetch(apis[1]);
+                        if (response.ok) {
+                            const data = await response.json();
+                            encouragement = data.slip?.advice || "每一天都是爱的新的开始。";
+                        } else {
+                            throw new Error('API 2 failed');
+                        }
+                    } catch (error2) {
+                        console.log("API 2 失败，使用备用鼓励语");
+                        encouragement = getFallbackEncouragement();
+                    }
+                }
+                
+                encouragementText.textContent = encouragement;
+            } catch (error) {
+                console.error("获取鼓励语失败:", error);
+                encouragementText.textContent = getFallbackEncouragement();
+            } finally {
+                loadingIndicator.style.display = 'none';
+                refreshBtn.disabled = false;
+            }
+        }
+        
+        // 备用鼓励话语
+        function getFallbackEncouragement() {
+            const encouragements = [
+                "真爱是两颗心的和谐共鸣，愿你们的爱情永远如此美妙。",
+                "在一起的每一天都是礼物，珍惜彼此，珍惜现在。",
+                "爱情就像花朵，需要用心灌溉，才能绽放最美的光彩。",
+                "最好的爱情是相互成就，共同成长，愿你们一直携手前行。",
+                "真正的感情经得起时间考验，愿你们的爱越来越深厚。",
+                "相爱就是找到另一个自己，却又惊喜地发现彼此的不同。",
+                "爱情不是寻找完美的人，而是学会用完美的眼光看待不完美的人。",
+                "最美好的爱情是既能共享阳光，也能共渡风雨。",
+                "每一天都是爱的新的开始，每一刻都值得被珍惜。",
+                "爱是理解，是包容，是无论何时都选择站在彼此身边。"
+            ];
+            
+            return encouragements[Math.floor(Math.random() * encouragements.length)];
+        }
+        
+        // 计算纪念日
+        function calculateMilestones() {
+            const startDate = new Date('2025-12-11');
+            const today = new Date();
+            
+            const milestones = [
+                { name: "一个月纪念日", days: 30 },
+                { name: "100天纪念日", days: 100 },
+                { name: "三个月纪念日", days: 90 },
+                { name: "半年纪念日", days: 182 },
+                { name: "一周年纪念日", days: 365 },
+                { name: "500天纪念日", days: 500 },
+                { name: "两周年纪念日", days: 730 }
+            ];
+            
+            const milestoneList = document.getElementById('milestoneList');
+            milestoneList.innerHTML = '';
+            
+            milestones.forEach(milestone => {
+                const milestoneDate = new Date(startDate);
+                milestoneDate.setDate(milestoneDate.getDate() + milestone.days);
+                
+                const milestoneItem = document.createElement('li');
+                milestoneItem.className = 'milestone-item';
+                
+                const daysUntil = Math.ceil((milestoneDate - today) / (1000 * 60 * 60 * 24));
+                
+                let countdownText = '';
+                if (daysUntil > 0) {
+                    countdownText = `还有 ${daysUntil} 天`;
+                } else if (daysUntil === 0) {
+                    countdownText = '就是今天！';
+                } else {
+                    countdownText = `已过去 ${Math.abs(daysUntil)} 天`;
+                }
+                
+                milestoneItem.innerHTML = `
+                    <div>
+                        <div class="milestone-name">${milestone.name}</div>
+                        <div class="milestone-date">${milestoneDate.getFullYear()}年${milestoneDate.getMonth() + 1}月${milestoneDate.getDate()}日</div>
+                    </div>
+                    <div class="countdown">${countdownText}</div>
+                `;
+                
+                milestoneList.appendChild(milestoneItem);
+            });
+        }
+        
+        // 从API获取日历信息
+        async function fetchCalendarInfo() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const dateStr = `${year}${month}${day}`;
+            
+            const apiUrl = `${CALENDAR_API_BASE}${dateStr}?ignoreHoliday=false&app_id=${APP_ID}&app_secret=${APP_SECRET}`;
+            
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error(`API请求失败: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.code === 1) {
+                    displayCalendarInfo(data.data);
+                    fetchUpcomingHolidays(data.data, today);
+                } else {
+                    throw new Error(data.msg || '获取日历信息失败');
+                }
+            } catch (error) {
+                console.error("获取日历信息失败:", error);
+                showCalendarError();
+            }
+        }
+        
+        // 显示日历信息
+        function displayCalendarInfo(calendarData) {
+            const calendarInfo = document.getElementById('calendarInfo');
+            const weekDays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+            
+            // 处理工作日/节假日样式
+            let typeClass = calendarData.type === 0 ? 'workday' : 'weekend';
+            let typeText = calendarData.typeDes || (calendarData.type === 0 ? '工作日' : '节假日');
+            
+            calendarInfo.innerHTML = `
+                <div class="calendar-info-grid">
+                    <div class="calendar-item">
+                        <div class="calendar-label">农历日期</div>
+                        <div class="calendar-value">${calendarData.lunarCalendar || '未知'}</div>
+                    </div>
+                    <div class="calendar-item">
+                        <div class="calendar-label">星期</div>
+                        <div class="calendar-value">${weekDays[calendarData.weekDay] || '未知'}</div>
+                    </div>
+                    <div class="calendar-item">
+                        <div class="calendar-label">干支年</div>
+                        <div class="calendar-value">${calendarData.yearTips || '未知'}</div>
+                    </div>
+                    <div class="calendar-item">
+                        <div class="calendar-label">生肖</div>
+                        <div class="calendar-value">${calendarData.chineseZodiac || '未知'}</div>
+                    </div>
+                    <div class="calendar-item">
+                        <div class="calendar-label">节气</div>
+                        <div class="calendar-value">${calendarData.solarTerms || '未知'}</div>
+                    </div>
+                    <div class="calendar-item">
+                        <div class="calendar-label">星座</div>
+                        <div class="calendar-value">${calendarData.constellation || '未知'}</div>
+                    </div>
+                    <div class="calendar-item">
+                        <div class="calendar-label">今日宜</div>
+                        <div class="calendar-value">${calendarData.suit || '未知'}</div>
+                    </div>
+                    <div class="calendar-item">
+                        <div class="calendar-label">今日忌</div>
+                        <div class="calendar-value">${calendarData.avoid || '未知'}</div>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: ${calendarData.type === 0 ? '#e6f7ff' : '#fff0f6'}; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 1.1rem; margin-bottom: 5px;">今天是</div>
+                    <div style="font-size: 1.4rem; font-weight: bold;" class="${typeClass}">${typeText}</div>
+                </div>
+            `;
+        }
+        
+        // 获取未来节假日的函数
+        async function fetchUpcomingHolidays(currentData, today) {
+            const holidayInfo = document.getElementById('holidayInfo');
+            const upcomingHolidays = [];
+            
+            // 从今天开始检查未来30天
+            for (let i = 1; i <= 30; i++) {
+                const nextDate = new Date(today);
+                nextDate.setDate(today.getDate() + i);
+                
+                const year = nextDate.getFullYear();
+                const month = String(nextDate.getMonth() + 1).padStart(2, '0');
+                const day = String(nextDate.getDate()).padStart(2, '0');
+                const dateStr = `${year}${month}${day}`;
+                
+                try {
+                    // 延迟请求避免频繁请求
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    
+                    const apiUrl = `${CALENDAR_API_BASE}${dateStr}?ignoreHoliday=false&app_id=${APP_ID}&app_secret=${APP_SECRET}`;
+                    const response = await fetch(apiUrl);
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.code === 1 && data.data.type !== 0) { // type不为0表示节假日
+                            upcomingHolidays.push({
+                                date: nextDate,
+                                name: getHolidayName(data.data),
+                                typeDes: data.data.typeDes,
+                                type: data.data.type
+                            });
+                            
+                            // 最多显示3个节假日
+                            if (upcomingHolidays.length >= 3) {
+                                break;
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.log(`跳过日期 ${dateStr} 的检查`);
+                }
+            }
+            
+            displayUpcomingHolidays(upcomingHolidays, today);
+        }
+        
+        // 根据API数据获取节假日名称
+        function getHolidayName(holidayData) {
+            // 这里可以根据typeDes判断具体节日名称
+            if (holidayData.typeDes.includes('元旦')) return '元旦';
+            if (holidayData.typeDes.includes('春节')) return '春节';
+            if (holidayData.typeDes.includes('清明')) return '清明节';
+            if (holidayData.typeDes.includes('劳动')) return '劳动节';
+            if (holidayData.typeDes.includes('端午')) return '端午节';
+            if (holidayData.typeDes.includes('中秋')) return '中秋节';
+            if (holidayData.typeDes.includes('国庆')) return '国庆节';
+            if (holidayData.typeDes.includes('周末')) return '周末';
+            return holidayData.typeDes || '节假日';
+        }
+        
+        // 显示即将到来的节假日
+        function displayUpcomingHolidays(holidays, today) {
+            const holidayInfo = document.getElementById('holidayInfo');
+            
+            if (holidays.length === 0) {
+                holidayInfo.innerHTML = '<div style="margin-top: 20px; padding: 20px; text-align: center; color: #666; background: #f9f9f9; border-radius: 10px;">未来30天内暂无节假日</div>';
+                return;
+            }
+            
+            let html = '<div style="margin-top: 20px;"><h3 style="color: #ff4d94; margin-bottom: 15px;">即将到来的节假日</h3>';
+            
+            holidays.forEach(holiday => {
+                const daysUntil = Math.ceil((holiday.date - today) / (1000 * 60 * 60 * 24));
+                const month = holiday.date.getMonth() + 1;
+                const day = holiday.date.getDate();
+                
+                let statusText = '';
+                if (daysUntil === 1) {
+                    statusText = '<span style="color:#f759ab;">明天</span>';
+                } else if (daysUntil > 0) {
+                    statusText = `还有 ${daysUntil} 天`;
+                }
+                
+                html += `
+                    <div class="holiday-item">
+                        <div class="holiday-name">${holiday.name}</div>
+                        <div class="holiday-date">${holiday.date.getFullYear()}年${month}月${day}日</div>
+                        <div>${statusText}</div>
+                        <div class="holiday-type ${holiday.type === 0 ? '' : 'holiday'}">${holiday.typeDes}</div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            holidayInfo.innerHTML = html;
+        }
+        
+        // 显示日历错误
+        function showCalendarError() {
+            const calendarInfo = document.getElementById('calendarInfo');
+            const errorElement = document.getElementById('calendarError');
+            
+            calendarInfo.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">无法获取日历信息，请刷新页面重试</div>';
+      
+            // 显示默认信息
+            displayDefaultCalendarInfo();
+        }
+        
+        // 显示默认日历信息
+        function displayDefaultCalendarInfo() {
+            const today = new Date();
+            const weekDays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+            const weekDay = today.getDay();
+            const isWeekend = weekDay === 0 || weekDay === 6;
+            
+            const calendarInfo = document.getElementById('calendarInfo');
+            calendarInfo.innerHTML = `
+                <div class="calendar-info-grid">
+                    <div class="calendar-item">
+                        <div class="calendar-label">星期</div>
+                        <div class="calendar-value">${weekDays[weekDay]}</div>
+                    </div>
+                    <div class="calendar-item">
+                        <div class="calendar-label">今日状态</div>
+                        <div class="calendar-value ${isWeekend ? 'weekend' : 'workday'}">${isWeekend ? '周末' : '工作日'}</div>
+                    </div>
+                </div>
+            `;
+            
+            // 显示默认节日信息
+            const holidayInfo = document.getElementById('holidayInfo');
+            holidayInfo.innerHTML = `
+                <div style="margin-top: 20px;">
+                    <h3 style="color: #ff4d94; margin-bottom: 15px;">近期节日</h3>
+                    <div class="holiday-item">
+                        <div class="holiday-name">元旦</div>
+                        <div class="holiday-date">${today.getFullYear()+1}年1月1日</div>
+                        <div>还有 ${getDaysUntil(today, new Date(today.getFullYear()+1, 0, 1))} 天</div>
+                        <div class="holiday-type holiday">节假日</div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // 计算距离某个日期的天数
+        function getDaysUntil(fromDate, toDate) {
+            return Math.ceil((toDate - fromDate) / (1000 * 60 * 60 * 24));
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            createHearts();
+            updateDateDisplay();
+            fetchEncouragement();
+            calculateMilestones();
+            fetchCalendarInfo();
+            
+            // 页面加载后延迟1秒播放烟花，让页面先加载完成
+            setTimeout(() => {
+                createFireworks();
+            }, 1000);
+            
+            // 绑定按钮事件
+            document.getElementById('refreshBtn').addEventListener('click', fetchEncouragement);
+            document.getElementById('fireworksBtn').addEventListener('click', createFireworks);
+            
+            // 每天自动刷新
+            setInterval(() => {
+                updateDateDisplay();
+                calculateMilestones();
+            }, 24 * 60 * 60 * 1000);
+        });
+        
+        // 页面可见性变化时重新获取鼓励语
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                fetchEncouragement();
+            }
+        });
+    </script>
+</body>
+</html>
